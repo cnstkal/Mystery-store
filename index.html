@@ -4,46 +4,57 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Mystery Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}body{background:#0d0d0d;color:#fff;font-family:sans-serif}button,input,textarea{font-family:inherit}.layout{display:grid;grid-template-columns:280px 1fr;min-height:100vh}.sidebar{padding:24px;border-right:1px solid #222;background:#121212}.content{padding:32px}.hero{background:#171717;padding:32px;border-radius:24px;margin-bottom:24px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}.card{background:#161616;border:1px solid #2a2a2a;border-radius:20px;overflow:hidden}.image{height:160px;background:#222;display:flex;align-items:center;justify-content:center;color:#999}.card-body{padding:18px}.card-body h3{margin-bottom:10px}.card-body p{color:#b8b8b8;line-height:1.5;margin-bottom:16px}.footer{display:flex;justify-content:space-between;align-items:center}.btn{background:#fff;color:#000;border:none;padding:10px 14px;border-radius:10px;cursor:pointer}.editor{margin-top:24px;background:#181818;padding:18px;border-radius:16px}.editor input,.editor textarea{width:100%;margin-top:10px;padding:12px;background:#0f0f0f;border:1px solid #333;color:#fff;border-radius:10px}.mode{width:100%;margin-top:18px}.danger{background:#ff4d4d;color:#fff}@media(max-width:900px){.layout{grid-template-columns:1fr}}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Inter',sans-serif;background:#05060a;color:#fff;min-height:100vh;padding:18px}button,input,textarea{font-family:inherit}.app{max-width:430px;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.top h1{font-size:34px;font-weight:700}.icon{width:42px;height:42px;border-radius:50%;background:#11131a;border:1px solid #22252f;display:flex;align-items:center;justify-content:center;color:#9e7bff}.hero{position:relative;background:linear-gradient(180deg,#10131c,#090b11);border:1px solid #1d2130;border-radius:34px;padding:28px;overflow:hidden;margin-bottom:28px}.hero::after{content:'';position:absolute;right:-40px;top:-20px;width:180px;height:240px;background:radial-gradient(circle,#8b5cf633,transparent 70%)}.tag{display:inline-block;padding:8px 12px;border-radius:999px;background:#141826;border:1px solid #262b3d;color:#b8b3d8;font-size:12px;margin-bottom:18px}.hero h2{font-size:42px;line-height:1.05;margin-bottom:14px}.hero p{color:#9aa0b5;line-height:1.6;margin-bottom:22px}.hero button{background:linear-gradient(90deg,#8b5cf6,#6d4cff);border:none;color:#fff;padding:15px 18px;border-radius:16px;font-weight:600;width:100%}.section{display:flex;justify-content:space-between;align-items:center;margin:26px 0 16px}.section span{color:#8b90a6;font-size:14px}.products{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card{background:#0d1018;border:1px solid #1d2130;border-radius:24px;overflow:hidden;box-shadow:0 0 40px rgba(0,0,0,.35)}.image{height:170px;background:linear-gradient(180deg,#151925,#0b0e15);display:flex;align-items:center;justify-content:center;font-size:48px;color:#8b5cf6}.body{padding:16px}.body h3{font-size:17px;margin-bottom:8px}.body p{font-size:13px;color:#9399ad;line-height:1.5;min-height:38px}.price{margin-top:16px;font-weight:700;font-size:18px}.bottom{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;width:calc(100% - 32px);max-width:430px;background:rgba(10,11,18,.92);border:1px solid #232738;border-radius:24px;padding:14px 12px;display:flex;justify-content:space-around;backdrop-filter:blur(14px)}.nav-item{display:flex;flex-direction:column;align-items:center;gap:6px;color:#8c91a8;font-size:12px}.active{color:#9e7bff}.editor-btn{margin-top:20px;width:100%;padding:14px;border-radius:16px;background:#141826;border:1px solid #2c3245;color:#fff}.editor{display:none;margin-top:18px;background:#0e1119;border:1px solid #232738;padding:18px;border-radius:24px}.editor.active{display:block}.editor input,.editor textarea{width:100%;margin-top:10px;background:#080a11;border:1px solid #25293a;color:#fff;padding:14px;border-radius:14px}.editor textarea{height:90px;resize:none}.editor button{margin-top:12px;width:100%;padding:14px;border:none;border-radius:14px;background:#8b5cf6;color:#fff;font-weight:700}.delete{margin-top:12px;width:100%;padding:12px;border:none;border-radius:12px;background:#1b1f2b;color:#ff7d7d}@media(max-width:480px){.hero h2{font-size:34px}.products{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<div class="layout">
-<aside class="sidebar">
-<h1>Mystery Store</h1>
-<p style="color:#999;margin-top:8px">현실적인데 이상한 물건들.</p>
-<button id="modeBtn" class="btn mode">편집자 모드</button>
-<div id="editorPanel" class="editor" style="display:none">
-<h3>상품 추가</h3>
-<input id="name" placeholder="상품 이름" />
-<input id="category" placeholder="카테고리" />
-<input id="price" placeholder="가격" />
-<textarea id="desc" placeholder="설명"></textarea>
-<button id="addBtn" class="btn" style="margin-top:12px;width:100%">상품 등록</button>
+<div class='app'>
+<div class='top'>
+<h1>Mystery store</h1>
+<div class='icon'>◌</div>
 </div>
-</aside>
-<main class="content">
-<div class="hero">
-<h2>평범한데 기묘한 상품들</h2>
-<p style="color:#bbb;margin-top:10px">누군가 한 번쯤 본 것 같지만 설명하기 어려운 물건들을 판매합니다.</p>
+<div class='hero'>
+<div class='tag'>익숙한 일상 속 낯선 무언가</div>
+<h2>설명되지 않는<br>물건들</h2>
+<p>현실적인데 이상하게 기억에 남는 물건들을 판매합니다.</p>
+<button>탐험하러 가기</button>
 </div>
-<div id="products" class="grid"></div>
-</main>
+<div class='section'>
+<h2>New Arrivals</h2>
+<span>전체보기</span>
+</div>
+<div id='products' class='products'></div>
+<button id='editorToggle' class='editor-btn'>편집자 모드</button>
+<div id='editor' class='editor'>
+<input id='name' placeholder='상품 이름'>
+<input id='price' placeholder='가격'>
+<textarea id='desc' placeholder='설명'></textarea>
+<button id='add'>상품 추가</button>
+</div>
+</div>
+<div class='bottom'>
+<div class='nav-item active'>⌂<span>홈</span></div>
+<div class='nav-item'>◫<span>카테고리</span></div>
+<div class='nav-item'>⌕<span>검색</span></div>
+<div class='nav-item'>♡<span>찜</span></div>
+<div class='nav-item'>◉<span>마이</span></div>
 </div>
 <script>
-const defaultProducts=[{id:1,name:'창문 없는 디지털 시계',category:'전자기기',price:'49,000원',description:'새벽 4시 13분에서 멈춘다.'},{id:2,name:'젖지 않는 우산',category:'생활용품',price:'22,000원',description:'비 오는 날에만 사라진다.'}]
-let editorMode=localStorage.getItem('editorMode')==='true'
-let products=JSON.parse(localStorage.getItem('products')||'null')||defaultProducts
-const productsEl=document.getElementById('products')
-const modeBtn=document.getElementById('modeBtn')
-const editorPanel=document.getElementById('editorPanel')
-function render(){productsEl.innerHTML='';editorPanel.style.display=editorMode?'block':'none';modeBtn.innerText=editorMode?'편집자 모드 종료':'편집자 모드';localStorage.setItem('editorMode',editorMode);localStorage.setItem('products',JSON.stringify(products));products.forEach(product=>{const card=document.createElement('div');card.className='card';card.innerHTML=`<div class="image">${product.category}</div><div class="card-body"><h3>${product.name}</h3><p>${product.description}</p><div class="footer"><strong>${product.price}</strong>${editorMode?`<button class="btn danger" onclick="removeProduct(${product.id})">삭제</button>`:'<button class="btn">담기</button>'}</div></div>`;productsEl.appendChild(card)})}
-modeBtn.onclick=()=>{editorMode=!editorMode;render()}
-function removeProduct(id){products=products.filter(p=>p.id!==id);render()}
+const defaults=[{id:1,emoji:'◈',name:'다차원 큐브',price:'₩59,000',description:'빛을 비추면 내부 구조가 바뀐다.'},{id:2,emoji:'◌',name:'기억 저장 장치',price:'₩89,000',description:'누군가의 오래된 기억이 남아있다.'},{id:3,emoji:'⌛',name:'시간의 파편',price:'₩67,000',description:'초침 소리가 거꾸로 들린다.'}]
+let products=JSON.parse(localStorage.getItem('mystery-products')||'null')||defaults
+let editorMode=localStorage.getItem('mystery-editor')==='true'
+const wrap=document.getElementById('products')
+const editor=document.getElementById('editor')
+function save(){localStorage.setItem('mystery-products',JSON.stringify(products));localStorage.setItem('mystery-editor',editorMode)}
+function render(){wrap.innerHTML='';editor.className=editorMode?'editor active':'editor';products.forEach(item=>{const el=document.createElement('div');el.className='card';el.innerHTML=`<div class='image'>${item.emoji||'◈'}</div><div class='body'><h3>${item.name}</h3><p>${item.description}</p><div class='price'>${item.price}</div>${editorMode?`<button class='delete' onclick='removeProduct(${item.id})'>삭제</button>`:''}</div>`;wrap.appendChild(el)});save()}
+function removeProduct(id){products=products.filter(v=>v.id!==id);render()}
 window.removeProduct=removeProduct
-document.getElementById('addBtn').onclick=()=>{const name=document.getElementById('name').value;if(!name)return;products.unshift({id:Date.now(),name,category:document.getElementById('category').value,price:document.getElementById('price').value,description:document.getElementById('desc').value});document.getElementById('name').value='';document.getElementById('category').value='';document.getElementById('price').value='';document.getElementById('desc').value='';render()}
 render()
+document.getElementById('editorToggle').onclick=()=>{editorMode=!editorMode;render()}
+document.getElementById('add').onclick=()=>{const name=document.getElementById('name').value;if(!name)return;products.unshift({id:Date.now(),emoji:'✦',name,price:document.getElementById('price').value,description:document.getElementById('desc').value});document.getElementById('name').value='';document.getElementById('price').value='';document.getElementById('desc').value='';render()}
 </script>
 </body>
 </html>
