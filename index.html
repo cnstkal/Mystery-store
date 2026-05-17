@@ -1,12 +1,49 @@
 <!doctype html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mystery Store</title>
-    <script type="module" src="/src/main.jsx"></script>
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mystery Store</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{background:#0d0d0d;color:#fff;font-family:sans-serif}button,input,textarea{font-family:inherit}.layout{display:grid;grid-template-columns:280px 1fr;min-height:100vh}.sidebar{padding:24px;border-right:1px solid #222;background:#121212}.content{padding:32px}.hero{background:#171717;padding:32px;border-radius:24px;margin-bottom:24px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}.card{background:#161616;border:1px solid #2a2a2a;border-radius:20px;overflow:hidden}.image{height:160px;background:#222;display:flex;align-items:center;justify-content:center;color:#999}.card-body{padding:18px}.card-body h3{margin-bottom:10px}.card-body p{color:#b8b8b8;line-height:1.5;margin-bottom:16px}.footer{display:flex;justify-content:space-between;align-items:center}.btn{background:#fff;color:#000;border:none;padding:10px 14px;border-radius:10px;cursor:pointer}.editor{margin-top:24px;background:#181818;padding:18px;border-radius:16px}.editor input,.editor textarea{width:100%;margin-top:10px;padding:12px;background:#0f0f0f;border:1px solid #333;color:#fff;border-radius:10px}.mode{width:100%;margin-top:18px}.danger{background:#ff4d4d;color:#fff}@media(max-width:900px){.layout{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+<h1>Mystery Store</h1>
+<p style="color:#999;margin-top:8px">현실적인데 이상한 물건들.</p>
+<button id="modeBtn" class="btn mode">편집자 모드</button>
+<div id="editorPanel" class="editor" style="display:none">
+<h3>상품 추가</h3>
+<input id="name" placeholder="상품 이름" />
+<input id="category" placeholder="카테고리" />
+<input id="price" placeholder="가격" />
+<textarea id="desc" placeholder="설명"></textarea>
+<button id="addBtn" class="btn" style="margin-top:12px;width:100%">상품 등록</button>
+</div>
+</aside>
+<main class="content">
+<div class="hero">
+<h2>평범한데 기묘한 상품들</h2>
+<p style="color:#bbb;margin-top:10px">누군가 한 번쯤 본 것 같지만 설명하기 어려운 물건들을 판매합니다.</p>
+</div>
+<div id="products" class="grid"></div>
+</main>
+</div>
+<script>
+const defaultProducts=[{id:1,name:'창문 없는 디지털 시계',category:'전자기기',price:'49,000원',description:'새벽 4시 13분에서 멈춘다.'},{id:2,name:'젖지 않는 우산',category:'생활용품',price:'22,000원',description:'비 오는 날에만 사라진다.'}]
+let editorMode=localStorage.getItem('editorMode')==='true'
+let products=JSON.parse(localStorage.getItem('products')||'null')||defaultProducts
+const productsEl=document.getElementById('products')
+const modeBtn=document.getElementById('modeBtn')
+const editorPanel=document.getElementById('editorPanel')
+function render(){productsEl.innerHTML='';editorPanel.style.display=editorMode?'block':'none';modeBtn.innerText=editorMode?'편집자 모드 종료':'편집자 모드';localStorage.setItem('editorMode',editorMode);localStorage.setItem('products',JSON.stringify(products));products.forEach(product=>{const card=document.createElement('div');card.className='card';card.innerHTML=`<div class="image">${product.category}</div><div class="card-body"><h3>${product.name}</h3><p>${product.description}</p><div class="footer"><strong>${product.price}</strong>${editorMode?`<button class="btn danger" onclick="removeProduct(${product.id})">삭제</button>`:'<button class="btn">담기</button>'}</div></div>`;productsEl.appendChild(card)})}
+modeBtn.onclick=()=>{editorMode=!editorMode;render()}
+function removeProduct(id){products=products.filter(p=>p.id!==id);render()}
+window.removeProduct=removeProduct
+document.getElementById('addBtn').onclick=()=>{const name=document.getElementById('name').value;if(!name)return;products.unshift({id:Date.now(),name,category:document.getElementById('category').value,price:document.getElementById('price').value,description:document.getElementById('desc').value});document.getElementById('name').value='';document.getElementById('category').value='';document.getElementById('price').value='';document.getElementById('desc').value='';render()}
+render()
+</script>
+</body>
 </html>
