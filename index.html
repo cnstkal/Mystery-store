@@ -1,1 +1,592 @@
-<!doctype html><html><body><h1>Mystery Store</h1><script>console.log('cart update')</script></body></html>
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mystery Store</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+  background:#07090f;
+  color:#fff;
+  padding:18px;
+  padding-bottom:120px;
+}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.cart-icon{
+  width:46px;
+  height:46px;
+  border-radius:16px;
+  background:#121725;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+
+.cart-icon svg{
+  width:22px;
+  height:22px;
+  stroke:white;
+  fill:none;
+  stroke-width:1.8;
+}
+
+.hero{
+  margin-top:18px;
+  border-radius:32px;
+  padding:28px;
+  background:linear-gradient(180deg,#161b2a,#0b0d14);
+}
+
+.hero small{
+  color:#9ca3b8;
+}
+
+.hero h1{
+  font-size:54px;
+  line-height:1;
+  margin-top:12px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-top:24px;
+}
+
+.card{
+  background:#121725;
+  border-radius:24px;
+  overflow:hidden;
+  cursor:pointer;
+}
+
+.thumb{
+  width:100%;
+  height:190px;
+  object-fit:cover;
+  background:#1d2435;
+}
+
+.card-body{
+  padding:14px;
+}
+
+.price{
+  margin-top:10px;
+  color:#cdd3df;
+}
+
+.detail-image{
+  width:100%;
+  height:320px;
+  border-radius:28px;
+  object-fit:cover;
+  background:#1d2435;
+}
+
+.gallery{
+  display:flex;
+  gap:10px;
+  overflow:auto;
+  margin-top:14px;
+}
+
+.gallery img{
+  width:70px;
+  height:70px;
+  border-radius:14px;
+  object-fit:cover;
+  cursor:pointer;
+}
+
+.btn{
+  width:100%;
+  border:none;
+  padding:16px;
+  border-radius:18px;
+  margin-top:16px;
+  font-size:15px;
+  cursor:pointer;
+}
+
+.primary{
+  background:#8b5cf6;
+  color:white;
+}
+
+.secondary{
+  background:#1b2030;
+  color:white;
+}
+
+.danger{
+  background:#6d3041;
+  color:white;
+}
+
+.nav{
+  position:fixed;
+  left:18px;
+  right:18px;
+  bottom:18px;
+  background:#121725;
+  border-radius:28px;
+  padding:16px;
+  display:flex;
+  justify-content:space-around;
+}
+
+.nav button{
+  background:none;
+  border:none;
+  color:#9ca3b8;
+}
+
+.cart-item{
+  display:flex;
+  gap:14px;
+  background:#121725;
+  border-radius:22px;
+  padding:14px;
+  margin-top:14px;
+}
+
+.cart-item img{
+  width:90px;
+  height:90px;
+  border-radius:18px;
+  object-fit:cover;
+}
+
+.editor{
+  margin-top:20px;
+}
+
+.editor input,
+.editor textarea{
+  width:100%;
+  background:#121725;
+  border:none;
+  color:white;
+  padding:16px;
+  border-radius:18px;
+  margin-top:12px;
+}
+
+.editor textarea{
+  height:220px;
+  resize:none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HOME -->
+<section id="home" class="page active">
+
+<div class="top">
+  <h1>Mystery Store</h1>
+
+  <div class="cart-icon" onclick="go('cart')">
+    <svg viewBox="0 0 24 24">
+      <circle cx="9" cy="20" r="1"/>
+      <circle cx="18" cy="20" r="1"/>
+      <path d="M3 4h2l2.5 11h10l2-8H6"/>
+    </svg>
+  </div>
+</div>
+
+<div class="hero">
+  <small>익숙한 일상 속</small>
+  <h1>낯선<br>무언가</h1>
+</div>
+
+<div class="grid" id="products"></div>
+
+</section>
+
+<!-- DETAIL -->
+<section id="detail" class="page">
+
+<div onclick="go('home')">
+← 돌아가기
+</div>
+
+<img id="detailMain" class="detail-image">
+
+<div class="gallery" id="gallery"></div>
+
+<h1 id="detailTitle" style="margin-top:20px"></h1>
+
+<div id="detailPrice" class="price"></div>
+
+<p id="detailDesc"
+style="
+margin-top:20px;
+line-height:1.9;
+color:#9ca3b8;
+">
+</p>
+
+<button class="btn primary" onclick="addCart()">
+장바구니 담기
+</button>
+
+<button class="btn secondary" onclick="editProduct()">
+상품 수정
+</button>
+
+<button class="btn danger" onclick="deleteProduct()">
+상품 삭제
+</button>
+
+</section>
+
+<!-- CART -->
+<section id="cart" class="page">
+
+<div class="top">
+  <h1>장바구니</h1>
+
+  <div onclick="go('home')">
+    ✕
+  </div>
+</div>
+
+<div id="cartWrap"></div>
+
+<h2 style="margin-top:24px">
+총 결제금액:
+<span id="cartTotal"></span>
+</h2>
+
+</section>
+
+<!-- EDITOR -->
+<section id="editor" class="page">
+
+<div onclick="go('home')">
+← 홈
+</div>
+
+<div class="editor">
+
+<input id="name" placeholder="상품 이름">
+
+<input id="priceInput" placeholder="가격">
+
+<textarea id="descInput"
+placeholder="블로그 글 쓰듯 상세 설명 작성">
+</textarea>
+
+<input id="images"
+type="file"
+multiple
+accept="image/*">
+
+<button class="btn primary" onclick="saveProduct()">
+저장하기
+</button>
+
+</div>
+
+</section>
+
+<!-- NAV -->
+<div class="nav">
+  <button onclick="go('home')">홈</button>
+  <button onclick="go('cart')">장바구니</button>
+  <button onclick="go('editor')">편집</button>
+</div>
+
+<script>
+
+let products = JSON.parse(localStorage.products || '[]')
+
+if(!products.length){
+
+products = [
+{
+id:1,
+name:'다차원 큐브',
+price:59000,
+desc:'빛을 비추면 내부 구조가 바뀐다.',
+images:[
+'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop'
+]
+}
+]
+
+}
+
+let cart = JSON.parse(localStorage.cart || '[]')
+
+let current = null
+
+function save(){
+localStorage.products = JSON.stringify(products)
+localStorage.cart = JSON.stringify(cart)
+}
+
+function go(id){
+
+document.querySelectorAll('.page')
+.forEach(v=>v.classList.remove('active'))
+
+document
+.getElementById(id)
+.classList.add('active')
+
+}
+
+function render(){
+
+const wrap = document.getElementById('products')
+
+wrap.innerHTML = ''
+
+products.forEach(p=>{
+
+const card = document.createElement('div')
+
+card.className = 'card'
+
+card.onclick = ()=>openDetail(p.id)
+
+card.innerHTML = `
+<img class="thumb" src="${p.images[0]}">
+
+<div class="card-body">
+<h3>${p.name}</h3>
+<div class="price">
+₩${p.price.toLocaleString()}
+</div>
+</div>
+`
+
+wrap.appendChild(card)
+
+})
+
+renderCart()
+
+save()
+
+}
+
+function openDetail(id){
+
+current = products.find(v=>v.id===id)
+
+detailMain.src = current.images[0]
+
+gallery.innerHTML = ''
+
+current.images.forEach(img=>{
+
+const el = document.createElement('img')
+
+el.src = img
+
+el.onclick = ()=>{
+detailMain.src = img
+}
+
+gallery.appendChild(el)
+
+})
+
+detailTitle.innerText = current.name
+
+detailPrice.innerText =
+'₩' + current.price.toLocaleString()
+
+detailDesc.innerText = current.desc
+
+go('detail')
+
+}
+
+function addCart(){
+
+const found = cart.find(v=>v.id===current.id)
+
+if(found){
+
+found.qty++
+
+}else{
+
+cart.push({
+...current,
+qty:1
+})
+
+}
+
+render()
+
+}
+
+function renderCart(){
+
+cartWrap.innerHTML = ''
+
+let total = 0
+
+cart.forEach(item=>{
+
+total += item.price * item.qty
+
+const el = document.createElement('div')
+
+el.className = 'cart-item'
+
+el.innerHTML = `
+<img src="${item.images[0]}">
+
+<div style="flex:1">
+<h3>${item.name}</h3>
+
+<div class="price">
+₩${item.price.toLocaleString()}
+</div>
+
+<div style="margin-top:10px">
+수량 ${item.qty}
+</div>
+</div>
+`
+
+cartWrap.appendChild(el)
+
+})
+
+cartTotal.innerText =
+'₩' + total.toLocaleString()
+
+}
+
+let editing = null
+
+function editProduct(){
+
+editing = current.id
+
+name.value = current.name
+
+priceInput.value = current.price
+
+descInput.value = current.desc
+
+go('editor')
+
+}
+
+function deleteProduct(){
+
+products = products.filter(v=>v.id!==current.id)
+
+render()
+
+go('home')
+
+}
+
+async function saveProduct(){
+
+const files =
+[...images.files].slice(0,5)
+
+const imgs = []
+
+for(const file of files){
+
+imgs.push(await toBase64(file))
+
+}
+
+const item = {
+
+id: editing || Date.now(),
+
+name: name.value,
+
+price: +priceInput.value,
+
+desc: descInput.value,
+
+images: imgs.length
+? imgs
+: current?.images || []
+
+}
+
+if(editing){
+
+products =
+products.map(v=>
+v.id===editing ? item : v
+)
+
+}else{
+
+products.unshift(item)
+
+}
+
+editing = null
+
+render()
+
+go('home')
+
+}
+
+function toBase64(file){
+
+return new Promise(resolve=>{
+
+const fr = new FileReader()
+
+fr.onload = e=>{
+resolve(e.target.result)
+}
+
+fr.readAsDataURL(file)
+
+})
+
+}
+
+render()
+
+</script>
+
+</body>
+</html>
