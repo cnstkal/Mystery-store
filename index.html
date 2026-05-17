@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="ko">
 <head>
@@ -7,223 +8,285 @@
 
 <style>
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 body{
-  font-family:-apple-system,BlinkMacSystemFont,sans-serif;
-  background:#07090f;
-  color:#fff;
-  padding:18px;
-  padding-bottom:120px;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:#07090f;
+color:#fff;
+padding:18px;
+padding-bottom:120px;
 }
 
 .page{
-  display:none;
+display:none;
 }
 
 .page.active{
-  display:block;
+display:block;
 }
 
 .top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
 
 .cart-icon{
-  width:46px;
-  height:46px;
-  border-radius:16px;
-  background:#121725;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
+width:46px;
+height:46px;
+border-radius:16px;
+background:#121725;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
 }
 
-.cart-icon svg{
-  width:22px;
-  height:22px;
-  stroke:white;
-  fill:none;
-  stroke-width:1.8;
+.cart-icon svg,
+.nav svg{
+width:22px;
+height:22px;
+stroke:white;
+fill:none;
+stroke-width:1.8;
 }
 
 .hero{
-  margin-top:18px;
-  border-radius:32px;
-  padding:28px;
-  background:linear-gradient(180deg,#161b2a,#0b0d14);
+margin-top:18px;
+border-radius:32px;
+padding:28px;
+background:linear-gradient(180deg,#161b2a,#0b0d14);
 }
 
 .hero small{
-  color:#9ca3b8;
+color:#9ca3b8;
 }
 
 .hero h1{
-  font-size:54px;
-  line-height:1;
-  margin-top:12px;
+font-size:54px;
+line-height:1;
+margin-top:12px;
 }
 
 .grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
-  margin-top:24px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:14px;
+margin-top:24px;
 }
 
 .card{
-  background:#121725;
-  border-radius:24px;
-  overflow:hidden;
-  cursor:pointer;
+background:#121725;
+border-radius:24px;
+overflow:hidden;
+cursor:pointer;
 }
 
 .thumb{
-  width:100%;
-  height:190px;
-  object-fit:cover;
-  background:#1d2435;
+width:100%;
+height:190px;
+object-fit:cover;
+background:#1d2435;
 }
 
 .card-body{
-  padding:14px;
+padding:14px;
 }
 
 .price{
-  margin-top:10px;
-  color:#cdd3df;
+margin-top:10px;
+color:#cdd3df;
 }
 
 .detail-image{
-  width:100%;
-  height:320px;
-  border-radius:28px;
-  object-fit:cover;
-  background:#1d2435;
+width:100%;
+height:320px;
+border-radius:28px;
+object-fit:cover;
+background:#1d2435;
 }
 
 .gallery{
-  display:flex;
-  gap:10px;
-  overflow:auto;
-  margin-top:14px;
+display:flex;
+gap:10px;
+overflow:auto;
+margin-top:14px;
 }
 
 .gallery img{
-  width:70px;
-  height:70px;
-  border-radius:14px;
-  object-fit:cover;
-  cursor:pointer;
+width:70px;
+height:70px;
+border-radius:14px;
+object-fit:cover;
+cursor:pointer;
 }
 
 .btn{
-  width:100%;
-  border:none;
-  padding:16px;
-  border-radius:18px;
-  margin-top:16px;
-  font-size:15px;
-  cursor:pointer;
+width:100%;
+border:none;
+padding:16px;
+border-radius:18px;
+margin-top:16px;
+font-size:15px;
+cursor:pointer;
 }
 
 .primary{
-  background:#8b5cf6;
-  color:white;
+background:#8b5cf6;
+color:white;
 }
 
 .secondary{
-  background:#1b2030;
-  color:white;
+background:#1b2030;
+color:white;
 }
 
 .danger{
-  background:#6d3041;
-  color:white;
+background:#6d3041;
+color:white;
 }
 
 .nav{
-  position:fixed;
-  left:18px;
-  right:18px;
-  bottom:18px;
-  background:#121725;
-  border-radius:28px;
-  padding:16px;
-  display:flex;
-  justify-content:space-around;
+position:fixed;
+left:18px;
+right:18px;
+bottom:18px;
+background:#121725;
+border-radius:28px;
+padding:14px;
+display:flex;
+justify-content:space-around;
+align-items:center;
 }
 
 .nav button{
-  background:none;
-  border:none;
-  color:#9ca3b8;
+background:none;
+border:none;
+color:#9ca3b8;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:6px;
+font-size:11px;
+}
+
+.nav .active-nav{
+color:#9e7bff;
 }
 
 .cart-item{
-  display:flex;
-  gap:14px;
-  background:#121725;
-  border-radius:22px;
-  padding:14px;
-  margin-top:14px;
+display:flex;
+gap:14px;
+background:#121725;
+border-radius:22px;
+padding:14px;
+margin-top:14px;
+align-items:center;
 }
 
 .cart-item img{
-  width:90px;
-  height:90px;
-  border-radius:18px;
-  object-fit:cover;
+width:90px;
+height:90px;
+border-radius:18px;
+object-fit:cover;
+}
+
+.qty{
+display:flex;
+gap:10px;
+margin-top:10px;
+align-items:center;
+}
+
+.qty button{
+width:28px;
+height:28px;
+border:none;
+border-radius:10px;
+background:#1d2435;
+color:#fff;
 }
 
 .editor{
-  margin-top:20px;
+margin-top:20px;
 }
 
 .editor input,
 .editor textarea{
-  width:100%;
-  background:#121725;
-  border:none;
-  color:white;
-  padding:16px;
-  border-radius:18px;
-  margin-top:12px;
+width:100%;
+background:#121725;
+border:none;
+color:white;
+padding:16px;
+border-radius:18px;
+margin-top:12px;
 }
 
 .editor textarea{
-  height:220px;
-  resize:none;
+height:220px;
+resize:none;
+}
+
+.mypage-card{
+background:#121725;
+border-radius:28px;
+padding:22px;
+margin-top:18px;
+}
+
+.level-bar{
+height:8px;
+background:#1c2333;
+border-radius:999px;
+overflow:hidden;
+margin-top:12px;
+}
+
+.level-fill{
+height:100%;
+width:40%;
+background:#9e7bff;
+}
+
+.hidden-editor{
+position:fixed;
+top:16px;
+right:16px;
+opacity:.08;
+font-size:12px;
+padding:6px;
 }
 </style>
 </head>
 
 <body>
 
+<div class="hidden-editor" ondblclick="go('editor')">
+◌
+</div>
+
 <!-- HOME -->
 <section id="home" class="page active">
 
 <div class="top">
-  <h1>Mystery Store</h1>
+<h1>Mystery Store</h1>
 
-  <div class="cart-icon" onclick="go('cart')">
-    <svg viewBox="0 0 24 24">
-      <circle cx="9" cy="20" r="1"/>
-      <circle cx="18" cy="20" r="1"/>
-      <path d="M3 4h2l2.5 11h10l2-8H6"/>
-    </svg>
-  </div>
+<div class="cart-icon" onclick="go('cart')">
+<svg viewBox="0 0 24 24">
+<circle cx="9" cy="20" r="1"/>
+<circle cx="18" cy="20" r="1"/>
+<path d="M3 4h2l2.5 11h10l2-8H6"/>
+</svg>
+</div>
 </div>
 
 <div class="hero">
-  <small>익숙한 일상 속</small>
-  <h1>낯선<br>무언가</h1>
+<small>익숙한 일상 속</small>
+<h1>낯선<br>무언가</h1>
 </div>
 
 <div class="grid" id="products"></div>
@@ -233,7 +296,7 @@ body{
 <!-- DETAIL -->
 <section id="detail" class="page">
 
-<div onclick="go('home')">
+<div onclick="go('home')" style="margin-bottom:18px">
 ← 돌아가기
 </div>
 
@@ -271,19 +334,56 @@ color:#9ca3b8;
 <section id="cart" class="page">
 
 <div class="top">
-  <h1>장바구니</h1>
-
-  <div onclick="go('home')">
-    ✕
-  </div>
+<h1>장바구니</h1>
+<div onclick="go('home')">편집</div>
 </div>
 
 <div id="cartWrap"></div>
 
-<h2 style="margin-top:24px">
-총 결제금액:
-<span id="cartTotal"></span>
-</h2>
+<div class="mypage-card">
+<div style="display:flex;justify-content:space-between">
+<span>배송비</span>
+<span>₩3,000</span>
+</div>
+
+<div style="display:flex;justify-content:space-between;margin-top:16px">
+<b>총 결제금액</b>
+<b id="cartTotal" style="color:#9e7bff"></b>
+</div>
+
+<button class="btn primary">
+주문하기
+</button>
+</div>
+
+</section>
+
+<!-- MYPAGE -->
+<section id="mypage" class="page">
+
+<div class="mypage-card">
+<h1>Explorer</h1>
+
+<div style="margin-top:8px;color:#9ca3b8">
+호기심 Lv.3
+</div>
+
+<div class="level-bar">
+<div class="level-fill"></div>
+</div>
+
+<div style="margin-top:10px;color:#9ca3b8">
+320 / 600
+</div>
+</div>
+
+<div class="mypage-card">
+<div style="line-height:2.2">
+공지사항<br>
+고객센터<br>
+설정
+</div>
+</div>
 
 </section>
 
@@ -319,9 +419,32 @@ accept="image/*">
 
 <!-- NAV -->
 <div class="nav">
-  <button onclick="go('home')">홈</button>
-  <button onclick="go('cart')">장바구니</button>
-  <button onclick="go('editor')">편집</button>
+
+<button class="active-nav" onclick="go('home')">
+<svg viewBox="0 0 24 24">
+<path d="M3 10.5 12 3l9 7.5"/>
+<path d="M5 9.5V21h14V9.5"/>
+</svg>
+홈
+</button>
+
+<button onclick="go('cart')">
+<svg viewBox="0 0 24 24">
+<circle cx="9" cy="20" r="1"/>
+<circle cx="18" cy="20" r="1"/>
+<path d="M3 4h2l2.5 11h10l2-8H6"/>
+</svg>
+장바구니
+</button>
+
+<button onclick="go('mypage')">
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="8" r="4"/>
+<path d="M4 21c2-4 14-4 16 0"/>
+</svg>
+마이페이지
+</button>
+
 </div>
 
 <script>
@@ -362,6 +485,22 @@ document
 .getElementById(id)
 .classList.add('active')
 
+document
+.querySelectorAll('.nav button')
+.forEach(v=>v.classList.remove('active-nav'))
+
+if(id === 'home'){
+document.querySelectorAll('.nav button')[0].classList.add('active-nav')
+}
+
+if(id === 'cart'){
+document.querySelectorAll('.nav button')[1].classList.add('active-nav')
+}
+
+if(id === 'mypage'){
+document.querySelectorAll('.nav button')[2].classList.add('active-nav')
+}
+
 }
 
 function render(){
@@ -383,6 +522,7 @@ card.innerHTML = `
 
 <div class="card-body">
 <h3>${p.name}</h3>
+
 <div class="price">
 ₩${p.price.toLocaleString()}
 </div>
@@ -457,7 +597,7 @@ function renderCart(){
 
 cartWrap.innerHTML = ''
 
-let total = 0
+let total = 3000
 
 cart.forEach(item=>{
 
@@ -477,8 +617,10 @@ el.innerHTML = `
 ₩${item.price.toLocaleString()}
 </div>
 
-<div style="margin-top:10px">
-수량 ${item.qty}
+<div class="qty">
+<button onclick="minus(${item.id})">-</button>
+<span>${item.qty}</span>
+<button onclick="plus(${item.id})">+</button>
 </div>
 </div>
 `
@@ -489,6 +631,23 @@ cartWrap.appendChild(el)
 
 cartTotal.innerText =
 '₩' + total.toLocaleString()
+
+}
+
+function plus(id){
+cart.find(v=>v.id===id).qty++
+render()
+}
+
+function minus(id){
+
+const item = cart.find(v=>v.id===id)
+
+if(item.qty > 1){
+item.qty--
+}
+
+render()
 
 }
 
